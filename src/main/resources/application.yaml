@@ -1,0 +1,66 @@
+# Use English comments as requested.
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: always
+logging:
+  level:
+    zgz.demo.test: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: DEBUG
+    org.springframework.security.web.access: DEBUG
+    org.springframework.security.web.access.intercept: DEBUG
+    org.springframework.security.web.authentication: DEBUG
+    org.springframework.security.web.csrf: DEBUG
+    org.springframework.security.authorization: DEBUG
+
+spring:
+  # --- H2 local (file-based) ---
+  datasource:
+    url: jdbc:h2:file:./data/prodcuts;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: admin
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  security:
+    user:
+      name: admin
+      password: admin
+
+  application:
+    name: test
+
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: test
+    version: 0.0.1-SNAPSHOT
+    description: Demo project for Spring Boot
